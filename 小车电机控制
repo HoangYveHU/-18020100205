@@ -1,0 +1,88 @@
+void setup()
+{
+  pinMode(2, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(12, OUTPUT);
+  Serial.begin(9600);//initializing I/O
+}
+int income=0;
+void loop()
+{
+  if(Serial.available()>0)
+  {
+   income=Serial.read();
+   switch(income)
+        {
+        	case 'f':
+          		forward();
+          		break;
+          	case 'b':
+          		backward();
+          		break;
+          	case 'l':
+          		left();
+          		break;
+          	case 'r':
+          		right();
+          		break;
+          	case 's':
+          		stop();
+          		break;
+          	default:
+          		break;
+        }
+ }
+}
+void forward()
+{
+  digitalWrite(2,HIGH);
+  digitalWrite(3,LOW);
+  digitalWrite(4,HIGH);
+  digitalWrite(5,LOW);//drive motor
+}
+
+void backward()
+{
+  digitalWrite(3,HIGH);
+  digitalWrite(2,LOW);
+  digitalWrite(5,HIGH);
+  digitalWrite(4,LOW);//drive motor
+}
+
+void left()
+{
+  digitalWrite(2,HIGH);
+  digitalWrite(3,LOW);
+  digitalWrite(5,HIGH);
+  digitalWrite(4,LOW);//drive motor
+  digitalWrite(12,HIGH);
+  delay(3000);
+  digitalWrite(12,LOW);//LEFT indicator
+}
+
+void right()
+{
+  digitalWrite(3,HIGH);
+  digitalWrite(2,LOW);
+  digitalWrite(4,HIGH);
+  digitalWrite(5,LOW);//drive motor
+  digitalWrite(10,HIGH);
+  delay(3000);
+  digitalWrite(10,LOW);//RIGHT indicator
+}
+
+void stop()
+{
+  digitalWrite(2,LOW);
+  digitalWrite(3,LOW);
+  digitalWrite(4,LOW);
+  digitalWrite(5,LOW);//stop motor
+  digitalWrite(10,HIGH);
+  delay(1000);
+  digitalWrite(10,LOW);
+  delay(200);
+  digitalWrite(12,HIGH);
+  delay(1000);
+  digitalWrite(12,LOW);//stop shining
+}
