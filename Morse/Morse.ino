@@ -1,67 +1,65 @@
-#include <Morse.h>
-Morse morse(13); 
-char CODE[][4]=
+void setup()
 {
-  {'.','-','*','*'},
-  {'-','.','.','.'},
-  {'-','.','-','.'},
-  {'-','.','.','*'},
-  {'.','*','*','*'},
-  {'.','.','-','.'},
-  {'-','-','.','*'},
-  {'.','.','.','.'},
-  {'.','.','*','*'},
-  {'.','-','-','-'},
-  {'-','.','-','*'},
-  {'.','-','.','.'},
-  {'-','-','*','*'},
-  {'-','.','*','*'},
-  {'-','-','-','*'},
-  {'.','-','-','.'},
-  {'-','-','.','-'},
-  {'.','-','.','*'},
-  {'.','.','.','*'},
-  {'-','*','*','*'},
-  {'.','.','-','*'},
-  {'.','.','.','-'},
-  {'.','-','-','*'},
-  {'-','.','.','-'},
-  {'-','.','-','-'},
-  {'-','-','.','.'},
-}
-void setup(){
+  pinMode(2, OUTPUT);
   Serial.begin(9600);
 }
-void loop(){
-  String letter=""；
-  String morse="";
-  int i,j,t=0;
-  int count=0;
-  while(Serial.available()>0){
-    t=1;
-    letter+=char(Serial.read());
-    delay(2);
-    count++;
-  }
-  //或许用letter.length()计数??
-  if(t）{
-    for(i=0;i<count;i++)
+
+
+void dot()
+{
+  digitalWrite(2,HIGH);
+  delay(250);
+  digitalWrite(2,LOW);
+  delay(250);
+}//define dot signal
+
+void line()
+{
+  digitalWrite(2,HIGH);
+  delay(1000);
+  digitalWrite(2,LOW);
+  delay(1000);
+}//define line signal
+
+void c_space()
+{
+  digitalWrite(2,LOW);
+  delay(750);
+}
+
+void w_space()
+{
+  digitalWrite(2,LOW);
+  delay(1750);
+}
+
+
+void loop() 
+{
+  String str = "";
+  String morse = "";
+  int n = 0;  
+  while (Serial.available() > 0)
+  {
+    temp = 1;  
+    str += char(Serial.read());
+    n++;
+    delay(2);  
+   }
+
+if (temp)
+{
+  for (int i = 0; i < n; i++)
+  {
+    if (str[i] >= 97 && str[i] <= 122)
     {
-      for(j=0;j<4;j++){
-        if(letter[i]<="z"&&letter[i]>="a"){
-          morse+=char(CODE[int(letter[i]-97)][j]);
-        }
-      }
-    }morse+=" ";
-  }
-  Serial.println(morse);
-  for (i = 0; morse_s[i]!='\0' ; i++){
-    if (morse[i] == '.')morse.dot();
-        else if (morse[i] == '-'）
-           morse.dash();
-        else if (morse[i] == ' ')
-           morse.w_space();
-        if (morse[i] != ' ' && letter[i] != '*')
-           morse.c_space();
-  }delay(2)；
+      morse+=
+    }
+    if (int(str[i])!=32)
+       {morse += '/';}
+    else
+       { morse += ' ';}
+    }
+}
+
 }
